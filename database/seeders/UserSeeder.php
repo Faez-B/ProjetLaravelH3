@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -26,5 +27,7 @@ class UserSeeder extends Seeder
             'email' => "admin@admin.com",
             'password' => "$2y$10$8UYBJmkZWGPonX8s/738neplKlMJYo6MGDq9Zp3R2lhWLCPCYLdOG",
         ]);
+
+        User::factory()->count(5)->create();
     }
 }
