@@ -11,6 +11,6 @@ class Type extends Model
 
     protected $table = "type";
 
-    protected $fillable = "name";
+    protected $fillable = ["name"];
     public $timestamps = false;
 }
