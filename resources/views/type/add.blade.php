@@ -2,7 +2,7 @@
 
 @section('content')
     <h1 class="text-center">
-        Ajouter des type de formation
+        Ajouter des types de formation
     </h1>
 
     <h3>
