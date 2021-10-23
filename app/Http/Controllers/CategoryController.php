@@ -26,12 +26,15 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        // dd(Auth::user()->role);
-        $categories = Category::all();
-        // dd($categories);
-        return view("categories.add", compact([
-            "categories"
-        ]));
+        if (Auth::check() && Auth::user()->role == "admin"){
+            // dd(Auth::user()->role);
+            $categories = Category::all();
+            // dd($categories);
+            return view("categories.add", compact([
+                "categories"
+            ]));
+        }
+        return redirect()->route('index');
     }
 
     /**

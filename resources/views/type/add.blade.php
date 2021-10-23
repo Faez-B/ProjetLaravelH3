@@ -17,12 +17,14 @@
                 <li>
                     {{ $type->name }}
                 </li>
-                <form action="{{ route('deleteType', $type->id) }}" method="post">
-                    @csrf
-                    @method("DELETE")
+                @if (Auth::check() && Auth::user()->role == "admin")
+                    <form action="{{ route('deleteType', $type->id) }}" method="post">
+                        @csrf
+                        @method("DELETE")
 
-                    <button type="submit" class="btn btn-danger">Supprimer</button>
-                </form>
+                        <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                @endif
             @endforeach
         </ul>
     @endif

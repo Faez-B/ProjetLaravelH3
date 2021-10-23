@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TypeStoreRequest;
 use App\Models\Type;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\TypeStoreRequest;
 
 class TypeController extends Controller
 {
@@ -25,10 +26,13 @@ class TypeController extends Controller
      */
     public function create()
     {
-        $types = Type::all();
-        return view("type.add", compact([
-            "types"
-        ]));
+        if (Auth::check() && Auth::user()->role == "admin"){
+            $types = Type::all();
+            return view("type.add", compact([
+                "types"
+            ]));
+        }
+        return redirect()->route('index');
     }
 
     /**
