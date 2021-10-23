@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TypeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,8 @@ Route::get("categories", [CategoryController::class,'create'])->name("addCategor
 Route::post("categories", [CategoryController::class,'store'])->name("storeCategory");
 Route::delete("categories/{id}", [CategoryController::class,'delete'])->name("deleteCategory");
 
-
+Route::get("type", [TypeController::class,'create'])->name("addType");
+Route::post("type", [TypeController::class,'store'])->name("storeType");
+Route::delete("type/{id}", [TypeController::class,'delete'])->name("deleteType");
 
 require __DIR__.'/auth.php';

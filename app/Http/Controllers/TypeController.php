@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TypeStoreRequest;
 use App\Models\Type;
 use Illuminate\Http\Request;
 
@@ -24,7 +25,10 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        $types = Type::all();
+        return view("type.add", compact([
+            "types"
+        ]));
     }
 
     /**
@@ -33,9 +37,12 @@ class TypeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TypeStoreRequest $request)
     {
-        //
+        $params = $request->validated();
+        Type::create($params);
+
+        return back();
     }
 
     /**
@@ -78,8 +85,12 @@ class TypeController extends Controller
      * @param  \App\Models\Type  $type
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Type $type)
+    public function delete($id)
     {
-        //
+        $type = Type::find($id);
+
+        $type->delete();
+
+        return back();
     }
 }
