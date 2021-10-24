@@ -10,18 +10,26 @@
         Voici la liste des formations
     </h1>
 
-    @if (Auth::check() && Auth::user()->role == "admin")
-        <a href="{{ route('addCategory') }}">
-            <button class="btn btn-primary">
-                Catégories
-            </button>
-        </a>
+    @if (Auth::check())
+        @if (Auth::user()->role == "admin")
+            <div class="mb-4">
+                <a href="{{ route('addCategory') }}">
+                    <button class="btn btn-primary">
+                        Catégories
+                    </button>
+                </a>
 
-        <a href="{{ route('addType') }}">
-            <button class="btn btn-primary">
-                Type
-            </button>
-        </a>
+                <a href="{{ route('addType') }}">
+                    <button class="btn btn-primary">
+                        Type
+                    </button>
+                </a>
+            </div>
+        @endif
+
+        <p class="fw-bold mt-4 mb-4">
+            Vos formations s'affichent en vert
+        </p>
     @endif
 
     @if (empty($formations))
@@ -30,7 +38,7 @@
         <div class="row">
             @foreach ($formations as $formation)
                 <div class="col-md-4">
-                    <div class="card @if (Auth::check() && Auth::user()->id == $formation->user) bg-success @endif">
+                    <div class="card @if (Auth::check() && Auth::user()->id == $formation->user) bg-success bg-gradient @endif">
                         <img src="" alt="" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">
@@ -40,7 +48,7 @@
                             @if (!empty($formation->categories))
                                 <div>
                                     @foreach ($formation->categories as $category)
-                                        <div class="btn btn-warning">
+                                        <div class="btn btn-warning mt-1">
                                             {{ $category->name }}        
                                         </div>
                                     @endforeach
@@ -50,22 +58,26 @@
                             @if (!empty($formation->types))
                                 <div>
                                     @foreach ($formation->types as $type)
-                                        <div class="btn btn-info">
+                                        <div class="btn btn-info mt-1">
                                             {{ $type->name }}        
                                         </div>
                                     @endforeach
                                 </div>
                             @endif
 
-                            <p class="card-text">
+                            <p class="card-text border border-success bg-light p-3 mt-2 mb-2 rounded-3">
                                 {{ $formation->description }}
+                            </p>
+
+                            <p class="card-text border border-success bg-light p-3 mb-2 rounded-3">
+                                Prix : {{ $formation->prix }} euros
                             </p>
 
                             <p class="card-text">
                                 {{-- Créé par {{ $users::find($formation->user) }}  --}}
                             </p>
 
-                            <a href="#">Voir la formation</a>
+                            <a href="/" class="btn btn-primary">Voir la formation</a>
                         </div>
                     </div>
                 </div>
