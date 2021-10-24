@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FormationController;
 use App\Http\Controllers\TypeController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
     |
 */
 
-Route::get('/', function () { return view('test'); })->name('index');
+Route::get('/', [FormationController::class, "index"])->name('index');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

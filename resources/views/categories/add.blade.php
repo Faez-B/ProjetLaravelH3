@@ -1,5 +1,10 @@
 @extends('layout')
 
+@section('title')
+    Ajouter des catégories    
+@endsection
+
+
 @section('content')
     <h1 class="text-center">
         Ajouter des catégories

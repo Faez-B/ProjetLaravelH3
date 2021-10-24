@@ -1,5 +1,9 @@
 @extends('layout')
 
+@section('title')
+    Ajouter des types de formation
+@endsection
+
 @section('content')
     <h1 class="text-center">
         Ajouter des types de formation
