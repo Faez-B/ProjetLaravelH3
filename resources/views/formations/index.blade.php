@@ -11,8 +11,15 @@
     </h1>
 
     @if (Auth::check())
-        @if (Auth::user()->role == "admin")
-            <div class="mb-4">
+        <div class="mb-4">
+            {{-- Un admin peut aussi créer des formations (dans le cas où le formateur ne pourrait le faire, ceci est utile) --}}
+            <a href="{{ route('addFormation') }}">
+                <button class="btn btn-primary">
+                    Formations
+                </button>
+            </a>
+
+            @if (Auth::user()->role == "admin")
                 <a href="{{ route('addCategory') }}">
                     <button class="btn btn-primary">
                         Catégories
@@ -21,12 +28,11 @@
 
                 <a href="{{ route('addType') }}">
                     <button class="btn btn-primary">
-                        Type
+                        Types
                     </button>
                 </a>
-            </div>
-        @endif
-
+            @endif
+        </div>
         <p class="fw-bold mt-4 mb-4">
             Vos formations s'affichent en vert
         </p>

@@ -18,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [FormationController::class, "index"])->name('index');
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth'])->name('dashboard');
-
 Route::get("categories", [CategoryController::class,'create'])->name("addCategory");
 Route::post("categories", [CategoryController::class,'store'])->name("storeCategory");
 Route::delete("categories/{id}", [CategoryController::class,'delete'])->name("deleteCategory");
@@ -29,5 +25,10 @@ Route::delete("categories/{id}", [CategoryController::class,'delete'])->name("de
 Route::get("type", [TypeController::class,'create'])->name("addType");
 Route::post("type", [TypeController::class,'store'])->name("storeType");
 Route::delete("type/{id}", [TypeController::class,'delete'])->name("deleteType");
+
+Route::get("formations", [FormationController::class,'create'])->name("addFormation");
+Route::post("formations", [FormationController::class,'store'])->name("storeFormation");
+Route::post("formations/{id}", [FormationController::class,'details'])->name("detailsFormation");
+Route::delete("formations/{id}", [FormationController::class,'delete'])->name("deleteFormation");
 
 require __DIR__.'/auth.php';

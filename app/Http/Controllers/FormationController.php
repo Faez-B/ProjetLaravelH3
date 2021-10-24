@@ -30,7 +30,7 @@ class FormationController extends Controller
      */
     public function create()
     {
-        //
+        return view("formations.add");
     }
 
     /**
@@ -50,7 +50,7 @@ class FormationController extends Controller
      * @param  \App\Models\Formation  $formation
      * @return \Illuminate\Http\Response
      */
-    public function show(Formation $formation)
+    public function details($id)
     {
         //
     }
