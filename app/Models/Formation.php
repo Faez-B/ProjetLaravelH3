@@ -22,6 +22,7 @@ class Formation extends Model
         "description",
         "image",
         "prix",
+        "user",
     ];
 
     public function chapters()

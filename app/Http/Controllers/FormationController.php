@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Formation;
+use App\Http\Requests\FormationStoreRequest;
+use App\Models\Type;
 use App\Models\User;
+use App\Models\Category;
+use App\Models\Formation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class FormationController extends Controller
 {
@@ -30,7 +35,16 @@ class FormationController extends Controller
      */
     public function create()
     {
-        return view("formations.add");
+        if (Auth::check()){
+            $categories =  Category::all();
+            $types =  Type::all();
+            return view("formations.add", compact([
+                "categories",
+                "types",
+            ]));
+        }
+
+        return redirect()->route('index'); 
     }
 
     /**
@@ -39,9 +53,32 @@ class FormationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormationStoreRequest $request)
     {
-        //
+        $params = $request->validated();
+        $file = Storage::put('public', $params['image']);
+
+        $params['image'] = substr($file, 7);
+
+        // dd($params);
+
+        $formation = Formation::create([
+            'name' => $params['name'],
+            'description' => $params['description'],
+            'image' => $params['image'],
+            'prix' => $params['prix'],
+            'user' => Auth::user()->id,
+        ]);
+
+        if (!empty($params['checkboxCategories'])) {
+            $formation->categories()->attach($params['checkboxCategories']);
+        }
+
+        if (!empty($params['checkboxTypes'])) {
+            $formation->categories()->attach($params['checkboxTypes']);
+        }
+
+        return redirect()->route('index');
     }
 
     /**
@@ -52,7 +89,11 @@ class FormationController extends Controller
      */
     public function details($id)
     {
-        //
+        $formation = Formation::find($id);
+
+        return view("formations.details", compact([
+            "formation",
+        ]));
     }
 
     /**
@@ -61,7 +102,7 @@ class FormationController extends Controller
      * @param  \App\Models\Formation  $formation
      * @return \Illuminate\Http\Response
      */
-    public function edit(Formation $formation)
+    public function edit($id)
     {
         //
     }
@@ -73,9 +114,13 @@ class FormationController extends Controller
      * @param  \App\Models\Formation  $formation
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Formation $formation)
+    public function update(Request $request, $id)
     {
-        //
+        if (Auth::check()){
+            
+        }
+
+        return redirect()->route('index'); 
     }
 
     /**

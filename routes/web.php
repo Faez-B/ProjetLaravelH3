@@ -28,7 +28,7 @@ Route::delete("type/{id}", [TypeController::class,'delete'])->name("deleteType")
 
 Route::get("formations", [FormationController::class,'create'])->name("addFormation");
 Route::post("formations", [FormationController::class,'store'])->name("storeFormation");
-Route::post("formations/{id}", [FormationController::class,'details'])->name("detailsFormation");
+Route::get("formations/{id}", [FormationController::class,'details'])->name("detailsFormation");
 Route::delete("formations/{id}", [FormationController::class,'delete'])->name("deleteFormation");
 
 require __DIR__.'/auth.php';

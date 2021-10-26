@@ -83,7 +83,7 @@
                                 {{-- Créé par {{ $users::find($formation->user) }}  --}}
                             </p>
 
-                            <a href="/" class="btn btn-primary">Voir la formation</a>
+                            <a href="{{ route('detailsFormation', $formation->id) }}" class="btn btn-primary">Voir la formation</a>
                         </div>
                     </div>
                 </div>
