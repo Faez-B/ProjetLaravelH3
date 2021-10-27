@@ -18,8 +18,11 @@ class CreateFormationsCategoriesTable extends Migration
             $table->unsignedBigInteger("category")->index();
             $table->unsignedBigInteger("formation")->index();
             
-            $table->foreign("formation")->references("id")->on("formations");
-            $table->foreign("category")->references("id")->on("categories");
+            $table->foreign("formation")->references("id")->on("formations")
+                    ->onDelete("CASCADE");
+            $table->foreign("category")->references("id")->on("categories")
+                    ->onDelete("CASCADE");
+            // $table->timestamps();
         });
     }
 

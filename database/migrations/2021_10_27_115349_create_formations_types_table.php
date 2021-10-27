@@ -18,8 +18,10 @@ class CreateFormationsTypesTable extends Migration
             $table->unsignedBigInteger("formation")->index();
             $table->unsignedBigInteger("type")->index();
 
-            $table->foreign("formation")->references("id")->on("formations");
-            $table->foreign("type")->references("id")->on("type");
+            $table->foreign("formation")->references("id")->on("formations")
+                    ->onDelete("CASCADE");
+            $table->foreign("type")->references("id")->on("type")
+                    ->onDelete("CASCADE");
         });
     }
 

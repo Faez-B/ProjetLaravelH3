@@ -9,4 +9,13 @@
         {{ $formation->name }}
     </h1>
     
+    <form action="{{ route('deleteFormation',$formation->id) }}" method="post">
+        @csrf
+        @method("DELETE")
+
+        <button type="submit" class="btn btn-danger">
+            Supprimer
+        </button>
+    
+    </form>
 @endsection

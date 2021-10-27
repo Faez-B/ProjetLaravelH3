@@ -43,7 +43,7 @@
     @else
         <div class="row">
             @foreach ($formations as $formation)
-                <div class="col-md-4">
+                <div class="col-md-4 mt-2 mb-2">
                     <div class="card @if (Auth::check() && Auth::user()->id == $formation->user) bg-success bg-gradient @endif">
                         <img src="" alt="" class="card-img-top">
                         <div class="card-body">

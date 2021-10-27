@@ -75,7 +75,7 @@ class FormationController extends Controller
         }
 
         if (!empty($params['checkboxTypes'])) {
-            $formation->categories()->attach($params['checkboxTypes']);
+            $formation->types()->attach($params['checkboxTypes']);
         }
 
         return redirect()->route('index');
@@ -131,6 +131,15 @@ class FormationController extends Controller
      */
     public function delete($id)
     {
-        //
+        $formation = Formation::find($id);
+
+        // Si tu trouves l'image tu la supprime
+        if (Storage::exists("public/$formation->picture")) {
+            Storage::delete("public/$formation->picture");
+        }
+
+        $formation->delete();
+
+        return redirect()->route('index'); 
     }
 }
