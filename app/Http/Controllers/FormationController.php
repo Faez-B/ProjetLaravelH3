@@ -98,6 +98,7 @@ class FormationController extends Controller
      */
     public function details($id)
     {
+        $users = User::all();
         $formation = Formation::find($id);
 
         $chapitres = Chapter::where('formation', $id)->get();
@@ -107,6 +108,7 @@ class FormationController extends Controller
         return view("formations.details", compact([
             "formation",
             "chapitres",
+            "users",
         ]));
     }
 

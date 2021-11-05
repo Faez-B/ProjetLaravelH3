@@ -5,9 +5,9 @@
 @endsection
 
 @section('content')
-
     <div class="details">
-        @if (!Auth::check() || Auth::user()->id != $formation->user)
+        @if (!Auth::check() || 
+            (Auth::user()->id != $formation->user && Auth::user()->role != "admin"))
             {{-- Si c'est un visiteur du site => montrer la formation normalement --}}
             <h1 class="text-center">
                 {{ $formation->name }}
@@ -22,9 +22,11 @@
             @if (!empty($formation->categories))
                 <div>
                     @foreach ($formation->categories as $category)
-                        <div class="btn btn-warning mt-1">
-                            {{ $category->name }}        
-                        </div>
+                        <a href="" name="searchByCat{{ $category->id }}" id="searchByCat{{ $category->id }}">
+                            <div class="btn btn-warning mt-1">
+                                {{ $category->name }}
+                            </div>
+                        </a>     
                     @endforeach
                 </div>
             @endif
@@ -32,9 +34,11 @@
             @if (!empty($formation->types))
                 <div>
                     @foreach ($formation->types as $type)
-                        <div class="btn btn-info mt-1">
-                            {{ $type->name }}        
-                        </div>
+                        <a href="" name="searchByType{{ $type->id }}" id="searchByType{{ $type->id }}">
+                            <div class="btn btn-info mt-1">
+                                {{ $type->name }}
+                            </div>
+                        </a>      
                     @endforeach
                 </div>
             @endif
@@ -48,11 +52,17 @@
             </div>
             
             <div>
-                <label class="fw-bold">
-                    Créé par : 
-                </label>
-
-                {{ $formation->user }}
+                {{-- {{ $formation->user }} --}}
+                @foreach ($users as $user)
+                    @if ($user->id == $formation->user)
+                        <p class="card-text">
+                            <label class="fw-bold">
+                                Créé par : 
+                            </label> 
+                            <a href="" name="searchByUser{{ $user->id }}" id="searchByUser{{ $user->id }}">{{ $user->firstname . " " . $user->lastname }}</a> 
+                        </p>
+                    @endif
+                @endforeach
             </div>
 
 
