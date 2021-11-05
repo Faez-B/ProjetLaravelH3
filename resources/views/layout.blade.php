@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/style.css">
 
     
-    <script src="js/app.js"></script>
-    <script src="js/main.js"></script>
+    <script src="../js/app.js"></script>
 
 
     <title>
@@ -21,23 +20,30 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('index') }}">
-                App
+                Accueil
             </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{{ route('index') }}">Home</a>
-                    </li>
+                    @if (Auth::check())
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ route('detailsUser', Auth::user()->id) }}">
+                                Compte
+                            </a>
+                        </li>
+                    @endif
                 </ul>
 
                 <div style="width: 100%; text-align:center; font-weight : bold; text-transform : uppercase;font-size: 1.5em;">
                     @if (Auth::check())
-                        {{ Auth::user()->firstname }}
+                        <a class="nav-link active" style="display: inline-block;" aria-current="page" href="{{ route('detailsUser', Auth::user()->id) }}">
+                            <div style="display: flex;justify-content: center;align-items: center; color: black;">
+                                {{-- face.jpg ou empty-avatar.png --}}
+                                <img src="{{ asset("storage/empty-avatar.png") }}" alt="" class="user-avatar" 
+                                    style="max-width: 50px; border: solid black 1px; border-radius:100%; padding:5px;margin:0 5px;">
+                                {{ Auth::user()->firstname }}
+                            </div>
+                        </a>
                     @endif
                 </div>
 

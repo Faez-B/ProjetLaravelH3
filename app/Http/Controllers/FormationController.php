@@ -6,6 +6,7 @@ use App\Http\Requests\FormationStoreRequest;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\Chapter;
 use App\Models\Formation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,11 +21,19 @@ class FormationController extends Controller
      */
     public function index()
     {
+        // $formations = Formation::where([
+        //     ["name", "!=", Null]
+        // ])->paginate(2);
         $formations = Formation::all();
+        $categories = Category::all();
+        $types = Type::all();
         // $users = "User";
+        $users = User::all();
         return view("formations.index", compact([
             "formations",
-            // "users"
+            "categories",
+            "types",
+            "users"
         ]));
     }
 
@@ -50,7 +59,7 @@ class FormationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\FormationStoreRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(FormationStoreRequest $request)
@@ -84,22 +93,27 @@ class FormationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Formation  $formation
+     * @param  \App\Models\Formation  $formation's id
      * @return \Illuminate\Http\Response
      */
     public function details($id)
     {
         $formation = Formation::find($id);
 
+        $chapitres = Chapter::where('formation', $id)->get();
+
+        // dd($chapitres);
+
         return view("formations.details", compact([
             "formation",
+            "chapitres",
         ]));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Formation  $formation
+     * @param  \App\Models\Formation  $formation's id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -110,14 +124,31 @@ class FormationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Formation  $formation
+     * @param  App\Http\Requests\FormationStoreRequest  $request
+     * @param  \App\Models\Formation  $formation's id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
         if (Auth::check()){
-            
+            $formation = Formation::find($id);
+            $params = $request->validated();
+
+            // dd($params);
+            $formation->update([
+                "name" => $params['name'],
+                "description" => $params['description'],
+                "image" => $params['image'],
+            ]);
+
+            // dd($post);
+
+            $formation->categories()->detach();
+            if (!empty($params['checkboxCategories'])) {
+                $formation->categories()->attach($params['checkboxCategories']);
+            }
+
+            return redirect()->route("index");
         }
 
         return redirect()->route('index'); 
@@ -126,7 +157,7 @@ class FormationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Formation  $formation
+     * @param  \App\Models\Formation  $formation's id
      * @return \Illuminate\Http\Response
      */
     public function delete($id)

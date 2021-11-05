@@ -2,3 +2,14 @@
     /* padding: 10px 0; */
     height: 100%;
 }
+
+.card img{
+    width: 100%;
+}
+
+.details .form_input_name{
+    width: 100%;
+    text-align: center;
+    height: 50px;
+    font-size: 1.5em;
+}

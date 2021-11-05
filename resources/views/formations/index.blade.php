@@ -21,13 +21,13 @@
 
             @if (Auth::user()->role == "admin")
                 <a href="{{ route('addCategory') }}">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-warning">
                         Catégories
                     </button>
                 </a>
 
                 <a href="{{ route('addType') }}">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-info">
                         Types
                     </button>
                 </a>
@@ -42,13 +42,44 @@
         <p>Aucune formation disponible</p>
     @else
         <div class="row">
+            <div class="mb-1">
+                @foreach ($categories as $category)
+                    <a href="" class="btn btn-warning" name="searchByCat{{ $category->id }}" id="searchByCat{{ $category->id }}">
+                        {{ $category->name }}
+                    </a>
+                @endforeach
+            </div>
+
+            <div class="">
+                @foreach ($types as $type)
+                    <a href=""  class="btn btn-info" name="searchByType{{ $type->id }}" id="searchByType{{ $type->id }}">
+                        {{ $type->name }}
+                    </a>
+                @endforeach
+            </div>
+
             @foreach ($formations as $formation)
                 <div class="col-md-4 mt-2 mb-2">
                     <div class="card @if (Auth::check() && Auth::user()->id == $formation->user) bg-success bg-gradient @endif">
-                        <img src="" alt="" class="card-img-top">
+                        <a href="{{ route('detailsFormation', $formation->id) }}">
+                            <div>
+                                @if ($formation->image)
+                                    <div class="image-container" style="max-width: 200px; margin:15px auto; height: 200px; display:flex; justify-content: center; align-items: center;">
+                                        <img src="{{ asset("storage/$formation->image") }}" alt="" class="card-img-top">
+                                    </div>
+                                @else
+                                    <div class="card-img-top text-center fw-bold" style="background: white; margin: 15px auto;color:red; text-transform:uppercase; font-size:2em;height:200px; display:flex;justify-content:center; align-items:center;">
+                                        {{ $formation->name }}
+                                    </div>    
+                                @endif
+                            </div>
+                        </a>
+
                         <div class="card-body">
                             <h5 class="card-title">
-                                {{ $formation->name }}                            
+                                <a href="{{ route('detailsFormation', $formation->id) }}">
+                                    {{ $formation->name }}                            
+                                </a>
                             </h5>
 
                             @if (!empty($formation->categories))
@@ -79,9 +110,14 @@
                                 Prix : {{ $formation->prix }} euros
                             </p>
 
-                            <p class="card-text">
-                                {{-- Créé par {{ $users::find($formation->user) }}  --}}
-                            </p>
+                            @foreach ($users as $user)
+                                @if ($user->id == $formation->user)
+                                    <p class="card-text">
+                                        Créé par <a href="" name="searchByUser{{ $user->id }}" id="searchByUser{{ $user->id }}">{{ $user->firstname . " " . $user->lastname }}</a> 
+                                    </p>
+                                @endif
+                            @endforeach
+                            {{-- Créé par {{ User::find($formation->user) }}  --}}
 
                             <a href="{{ route('detailsFormation', $formation->id) }}" class="btn btn-primary">Voir la formation</a>
                         </div>

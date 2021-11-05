@@ -24,7 +24,7 @@ class UserFactory extends Factory
     {
         $firstName = $this->faker->firstName();
         $lastName = $this->faker->lastName();
-        $email = $this->faker->unique()->safeEmail();
+        $email = strtolower($firstName) . "." . strtolower($lastName) . "@example.com";
 
         return [
             'email' => $email,

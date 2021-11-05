@@ -15,19 +15,19 @@ class CategorySeeder extends Seeder
     public function run()
     {
         DB::table('categories')->insert([
-            'name' => "Symfony",
+            'name' => "PHP",
         ]);
 
         DB::table('categories')->insert([
-            'name' => "Laravel",
+            'name' => "JavaScript",
         ]);
 
         DB::table('categories')->insert([
-            'name' => "React",
+            'name' => "Langues",
         ]);
 
         DB::table('categories')->insert([
-            'name' => "Anglais",
+            'name' => "Base de données",
         ]);
 
         DB::table('categories')->insert([

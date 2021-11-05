@@ -23,7 +23,7 @@
         @csrf
         <div class="form-group mt-3 mb-3">
             <input type="text" name="name" id="" placeholder="Nom de la formation" class="form-control" 
-                    value="{{ old("name") }}" required>
+                    value="{{ old("name") }}" required autofocus>
         </div>
 
         <div class="form-group mb-3">
