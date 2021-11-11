@@ -31,6 +31,13 @@
                                 Compte
                             </a>
                         </li>
+
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{ route('contact') }}">
+                                Contact
+                            </a>
+                        </li>
                     @endif
                 </ul>
 

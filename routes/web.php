@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FormationController;
 
@@ -39,7 +40,13 @@ Route::post("chapters/{id}", [UserController::class,'update'])->name("updateChap
 Route::get("chapters/{id}", [UserController::class,'details'])->name("detailsChapter");
 Route::delete("chapters/{id}", [UserController::class,'delete'])->name("deleteChapter");
 
-Route::get("utilisateurs", [UserController::class,'create'])->name("addUser");
+Route::get("contact", [ContactController::class,'contact'])->name("contact");
+Route::post("contact", [ContactController::class,'send'])->name("sendEmail");
+// Route::get("contact", [ContactController::class,'contact'])->name("contact");
+// Route::get("contact", [ContactController::class,'contact'])->name("contact");
+// Route::get("contact", [ContactController::class,'contact'])->name("contact");
+
+Route::get("/email/{email}/firstname/{firstname}/lastname/{lastname}", [UserController::class,'create'])->name("addUser");
 Route::post("utilisateurs", [UserController::class,'store'])->name("storeUser");
 Route::post("utilisateurs/{id}", [UserController::class,'update'])->name("updateUser");
 Route::get("utilisateurs/{id}", [UserController::class,'details'])->name("detailsUser");

@@ -13,3 +13,7 @@
     height: 50px;
     font-size: 1.5em;
 }
+
+.details .card {
+    margin: 15px 0;
+}

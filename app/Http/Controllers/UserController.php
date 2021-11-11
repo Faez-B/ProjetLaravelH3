@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\UserUpdateRequest;
+use App\Mail\ReponseMail;
 
 class UserController extends Controller
 {
@@ -23,9 +25,18 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($email, $firstname, $lastname)
     {
-        //
+        // $params = $request->all();
+        // $params = $data;
+        // dd($params);
+        // dd($email, $firstname, $lastname);
+        // var_dump($email);
+        // var_dump($firstname);
+        // var_dump($lastname);
+        // exit;
+        Mail::to($email)
+            ->send(new ReponseMail($email, $firstname, $lastname));
     }
 
     /**
