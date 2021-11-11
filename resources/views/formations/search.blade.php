@@ -1,6 +1,8 @@
 @extends('layout')
+{{-- @extends('formations.index') --}}
 
 @section('content')
+    {{-- La section correspondant à ce yield est dans index, ne fonctionne pas ici --}}
     {{-- @yield('accueil_content') --}}
     <h1 class="text-center">
         Voici la liste des formations
@@ -8,7 +10,6 @@
 
     @if (Auth::check())
         <div class="mb-4">
-            {{-- Un admin peut aussi créer des formations (dans le cas où le formateur ne pourrait le faire, ceci est utile) --}}
             <a href="{{ route('addFormation') }}">
                 <button class="btn btn-primary">
                     Formations
@@ -113,7 +114,6 @@
                                     </p>
                                 @endif
                             @endforeach
-                            {{-- Créé par {{ $formation->getUser()->firstname }}  --}}
 
                             <a href="{{ route('detailsFormation', $formation->id) }}" class="btn btn-primary">Voir la formation</a>
                         </div>

@@ -13,7 +13,7 @@
 
 
     <title>
-        @yield('title', "Projet Laravel")
+        @yield('title', "Plateforme SIGMA")
     </title>
 </head>
 <body>

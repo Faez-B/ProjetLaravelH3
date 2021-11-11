@@ -194,6 +194,23 @@ class FormationController extends Controller
         return view('formations.type');
     }
 
+    public function searchFormateur($id)
+    {
+        // $user = User::where('firstname', $nom);
+        $user = User::find($id);
+        $formations = Formation::where('user', $user->id)->get();
+        $categories = Category::all();
+        $types = Type::all();
+        // $users = User::all();
+
+        return view('formations.users', compact([
+            "formations",
+            "categories",
+            "types",
+            "user"
+        ]));
+    }
+
     public function searchName(Request $request)
     {
         $name = $request->nom_formation;

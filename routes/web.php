@@ -31,8 +31,9 @@ Route::delete("types/{id}", [TypeController::class,'delete'])->name("deleteType"
 Route::get("formations", [FormationController::class,'create'])->name("addFormation");
 Route::post("formations", [FormationController::class,'store'])->name("storeFormation");
 Route::post("formations/recherche", [FormationController::class,'searchName'])->name("searchName");
-Route::get("formations/{category}", [FormationController::class,'searchCat'])->name("searchCat");
-Route::get("formations/{type}", [FormationController::class,'searchType'])->name("searchType");
+Route::get("formations/category/{category}", [FormationController::class,'searchCat'])->name("searchCat");
+Route::get("formations/type/{type}", [FormationController::class,'searchType'])->name("searchType");
+Route::get("formations/formateur/{nom}", [FormationController::class,'searchFormateur'])->name("searchFormateur");
 Route::post("formations/{id}", [FormationController::class,'update'])->name("updateFormation");
 Route::get("formations/{id}", [FormationController::class,'details'])->name("detailsFormation");
 Route::delete("formations/{id}", [FormationController::class,'delete'])->name("deleteFormation");

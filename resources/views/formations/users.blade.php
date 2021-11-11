@@ -1,11 +1,6 @@
 @extends('layout')
 
-@section('title')
-    Page d'accueil
-@endsection
-
 @section('content')
-    {{-- @section('accueil_content') --}}
     <h1 class="text-center">
         Voici la liste des formations
     </h1>
@@ -110,14 +105,9 @@
                                 Prix : {{ $formation->prix }} euros
                             </p>
 
-                            @foreach ($users as $user)
-                                @if ($user->id == $formation->user)
-                                    <p class="card-text">
-                                        Créé par <a href="{{ route('searchFormateur', $user->id) }}" name="searchByUser{{ $user->id }}" id="searchByUser{{ $user->id }}">{{ $user->firstname . " " . $user->lastname }}</a> 
-                                    </p>
-                                @endif
-                            @endforeach
-                            {{-- Créé par {{ $formation->getUser()->firstname }}  --}}
+                            <p class="card-text">
+                                Créé par {{ $user->firstname . " " . $user->lastname }}</a> 
+                            </p>
 
                             <a href="{{ route('detailsFormation', $formation->id) }}" class="btn btn-primary">Voir la formation</a>
                         </div>
@@ -126,7 +116,4 @@
             @endforeach
         </div>
     @endif
-    {{-- @endsection --}}
-
-    {{-- @yield('accueil_content') --}}
 @endsection
