@@ -46,17 +46,25 @@
                         <a class="nav-link active" style="display: inline-block;" aria-current="page" href="{{ route('detailsUser', Auth::user()->id) }}">
                             <div style="display: flex;justify-content: center;align-items: center; color: black;">
                                 {{-- face.jpg ou empty-avatar.png --}}
-                                <img src="{{ asset("storage/empty-avatar.png") }}" alt="" class="user-avatar" 
-                                    style="max-width: 50px; border: solid black 1px; border-radius:100%; padding:5px;margin:0 5px;">
-                                {{ Auth::user()->firstname }}
+                                @if (Auth::user()->image && Storage::disk('public')->exists(Auth::user()->image)) 
+                                    <img src="{{ asset("storage/" . Auth::user()->image) }}" alt="" class="user-avatar" 
+                                        style="max-width: 50px; border: solid black 1px; border-radius:100%; padding:5px;margin:0 5px;">
+
+                                @elseif (Storage::disk('public')->exists("empty-avatar.png"))
+                                    <img src="{{ asset("storage/empty-avatar.png") }}" alt="" class="user-avatar" 
+                                        style="max-width: 50px; border: solid black 1px; border-radius:100%; padding:5px;margin:0 5px;">
+                                        
+                                @endif
+                                <span>{{ Auth::user()->firstname }}</span>
                             </div>
                         </a>
                     @endif
                 </div>
 
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                <form class="d-flex" action="{{ route('searchName') }}" method="post">
+                    @csrf
+                    <input class="form-control me-2" type="search" placeholder="Recherche" aria-label="Recherche" name="nom_formation" id="nom_formation">
+                    <button class="btn btn-outline-success" type="submit">Recherche</button>
                 </form>
 
                 @if (!Auth::check())

@@ -1,4 +1,41 @@
-<x-guest-layout>
+@extends('layout')
+
+@section('content')
+    
+    <h1 class="text-center">
+        Connexion
+    </h1>
+
+    <form method="POST" class="text-center" action="{{ route('login') }}">
+        @csrf
+
+        <!-- Email Address -->
+        <div class="form-group">
+            <label for="email" class="fs-4">Email</label>
+
+            <input id="email" class="form-control" type="email" name="email" value="{{ old('email') }}" required autofocus />
+        </div>
+
+        <!-- Password -->
+        <div class="mt-4 form-group">
+            <label for="password" class="fs-4">Mot de passe</label>
+
+            <input id="password" class="form-control"
+                            type="password"
+                            name="password"
+                            required autocomplete="current-password" />
+        </div>
+
+        <div class="mt-4">
+            <button type="submit" class="ml-3 btn btn-success">
+                Connexion
+            </button>
+        </div>
+    </form>
+
+@endsection
+
+{{-- <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -53,4 +90,4 @@
             </div>
         </form>
     </x-auth-card>
-</x-guest-layout>
+</x-guest-layout> --}}

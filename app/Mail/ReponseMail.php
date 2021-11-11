@@ -42,6 +42,7 @@ class ReponseMail extends Mailable
     {
         $random = Str::random(8);
         $password = bcrypt($random);
+        
         User::create([
             'email' => $this->email,
             'password' => $password,
@@ -50,6 +51,7 @@ class ReponseMail extends Mailable
             'role' => "utilisateur",
             'status' => "valide",
         ]);
+
         return $this->view('emails.reponse')
                 ->from("admin@admin.com")
                 ->with([

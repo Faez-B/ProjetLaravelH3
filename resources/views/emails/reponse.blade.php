@@ -10,3 +10,6 @@ Voici vos identifiants : <br>
 Email : {{ $email }}
 <br>
 Mot de passe : {{ $random }}
+<br>
+<br>
+L'administrateur

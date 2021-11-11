@@ -27,7 +27,6 @@ class FormationController extends Controller
         $formations = Formation::all();
         $categories = Category::all();
         $types = Type::all();
-        // $users = "User";
         $users = User::all();
         return view("formations.index", compact([
             "formations",
@@ -174,5 +173,43 @@ class FormationController extends Controller
         $formation->delete();
 
         return redirect()->route('index'); 
+    }
+
+    public function searchCat($category)
+    {
+        $cat = Category::where('name', $category);
+        $cat_id = $cat->first()->id;
+        // dd($cat_id);
+        // $formations = Formation::where
+
+        return view('formations.category');
+    }
+
+    public function searchType($type)
+    {
+        $type_obj = Type::where('name', $type);
+        $type_id = $type_obj->first()->id;
+        // $formations = Formation::where
+
+        return view('formations.type');
+    }
+
+    public function searchName(Request $request)
+    {
+        $name = $request->nom_formation;
+
+        // Le regex ici permet de récupérer une formation même si on ne tape qu'un mot de la formation
+        // Example : Node JS avec node
+        $formations = Formation::where('name', 'LIKE', '%' . $name . '%')->get();
+        $categories = Category::all();
+        $types = Type::all();
+        $users = User::all();
+
+        return view('formations.search', compact([
+            "formations",
+            "categories",
+            "types",
+            "users"
+        ]));
     }
 }
