@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Category;
 use App\Models\Chapter;
 use App\Models\Formation;
+use App\Models\Formation_Category;
+use App\Models\Formation_Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -180,28 +182,64 @@ class FormationController extends Controller
         $cat = Category::where('name', $category);
         $cat_id = $cat->first()->id;
         // dd($cat_id);
-        // $formations = Formation::where
+        // Les formations avec la catégorie
+        $formations = [];
 
-        return view('formations.category');
+        $formations_category = Formation_Category::select("formation")->where("category", $cat_id)->get();
+        $formations_all = Formation::all();
+
+        // dd(count($formations_category));
+
+        // dd($cat_id, $formations_category[0] , $formations_category[0]->formation);
+        for ($i=0; $i < count($formations_category); $i++) { 
+            array_push($formations, Formation::find($formations_category[$i]->formation));
+        }
+
+        // dd($formations_category);
+
+        $categories = Category::all();
+        $types = Type::all();
+        $users = User::all();
+
+        return view('formations.category', compact([
+            "formations",
+            "categories",
+            "types",
+            "users",
+        ]));
     }
 
     public function searchType($type)
     {
         $type_obj = Type::where('name', $type);
         $type_id = $type_obj->first()->id;
-        // $formations = Formation::where
+        $formations = [];
 
-        return view('formations.type');
+        $formations_type = Formation_Type::select("formation")->where("type", $type_id)->get();
+        $formations_all = Formation::all();
+
+        for ($i=0; $i < count($formations_type); $i++) { 
+            array_push($formations, Formation::find($formations_type[$i]->formation));
+        }
+
+        $categories = Category::all();
+        $types = Type::all();
+        $users = User::all();
+
+        return view('formations.category', compact([
+            "formations",
+            "categories",
+            "types",
+            "users",
+        ]));
     }
 
     public function searchFormateur($id)
     {
-        // $user = User::where('firstname', $nom);
         $user = User::find($id);
         $formations = Formation::where('user', $user->id)->get();
         $categories = Category::all();
         $types = Type::all();
-        // $users = User::all();
 
         return view('formations.users', compact([
             "formations",

@@ -76,13 +76,18 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, $id)
     {
         $params = $request->validated();
+        
+        $params['user_image'] = "";
+        
+        dd($params);
+        
         $user = User::find($id);
-
         $user->update([
             "firstname" => $params['modifFirstName'],
             "lastname" => $params['modifLastName'],
             "email" => $params['modifEmail'],
             "password" => bcrypt($params['modifPassword']),
+            "image" => $params['user_image'],
         ]);
 
         return redirect()->route('index');

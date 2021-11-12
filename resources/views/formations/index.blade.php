@@ -4,8 +4,7 @@
     Page d'accueil
 @endsection
 
-@section('content')
-    {{-- @section('accueil_content') --}}
+@section('accueil_content')
     <h1 class="text-center">
         Voici la liste des formations
     </h1>
@@ -126,7 +125,9 @@
             @endforeach
         </div>
     @endif
-    {{-- @endsection --}}
+@endsection
 
-    {{-- @yield('accueil_content') --}}
+
+@section('content')
+    @yield('accueil_content')
 @endsection

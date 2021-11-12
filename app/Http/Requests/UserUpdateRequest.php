@@ -31,7 +31,8 @@ class UserUpdateRequest extends FormRequest
             "modifFirstName" => ["required", "string"],
             "modifLastName" => ["required", "string"],
             "modifEmail" => ["required", "email"],
-            "modifPassword" => 'required|string',
+            "modifPassword" => 'string',
+            "user_image" => 'image',
         ];
     }
 }
