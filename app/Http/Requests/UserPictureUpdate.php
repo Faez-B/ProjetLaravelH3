@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserUpdateRequest extends FormRequest
+class UserPictureUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,7 +17,6 @@ class UserUpdateRequest extends FormRequest
         if (Auth::check()) {
             return true;
         }
-        
         return false;
     }
 
@@ -29,11 +28,7 @@ class UserUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            "modifFirstName" => ["required", "string"],
-            "modifLastName" => ["required", "string"],
-            "modifEmail" => ["required", "email"],
-            "modifPassword" => ["nullable", "string"],
-            
+            "user_image" => 'image',
         ];
     }
 }

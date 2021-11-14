@@ -23,10 +23,25 @@ class FormationController extends Controller
      */
     public function index()
     {
-        // $formations = Formation::where([
-        //     ["name", "!=", Null]
-        // ])->paginate(2);
+        // ?page=2
+        // 10 formations maximum par page
         $formations = Formation::all();
+
+        $nb_formations = count($formations);
+
+        $reste = $nb_formations % 10;
+        // $nb_formations = 20;
+        
+        // dd($nb_formations % 10);
+
+        // if ($nb_formations % 10 == 0) {
+            
+        // }
+        
+
+        
+        // $formations = Formation::paginate(10);
+        // dd($nb_formations);
         $categories = Category::all();
         $types = Type::all();
         $users = User::all();

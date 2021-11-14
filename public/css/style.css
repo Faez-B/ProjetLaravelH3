@@ -17,3 +17,12 @@
 .details .card {
     margin: 15px 0;
 }
+
+.user_img_card{
+    max-width: 250px;
+    margin: 0 auto;
+}
+
+.user_img_card input[type=file]{
+    margin: 10px 0;
+}

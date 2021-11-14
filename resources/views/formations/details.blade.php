@@ -149,9 +149,7 @@
                     <label class="fw-bold">
                         Description
                     </label>
-                    <textarea type="text" name="formation_description" id="formation_description"> 
-                        {{ $formation->decription }}
-                    </textarea>
+                    <textarea type="text" name="formation_description" id="formation_description" value="{{ $formation->decription }}"></textarea>
                 </div>
 
                 <button type="submit" class="btn btn-primary">

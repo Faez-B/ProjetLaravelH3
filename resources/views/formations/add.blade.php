@@ -27,8 +27,7 @@
         </div>
 
         <div class="form-group mb-3">
-            <textarea name="description" id="" rows="5" placeholder="Description" class="form-control" required>
-            </textarea>
+            <textarea name="description" id="" rows="5" placeholder="Description" class="form-control" required></textarea>
         </div>
 
         <div class="form-group mb-3">

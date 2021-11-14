@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Http\Requests\UserUpdateRequest;
 use App\Mail\ReponseMail;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\UserPictureUpdate;
+use App\Http\Requests\UserUpdateRequest;
 
 class UserController extends Controller
 {
@@ -58,12 +61,16 @@ class UserController extends Controller
      */
     public function details($id)
     {
-        $user = User::find($id);
+        if (Auth::check()){
+            $user = User::find($id);
 
-        return view("users.details", compact([
-            "id",
-            "user",
-        ]));
+            return view("users.details", compact([
+                "id",
+                "user",
+            ]));
+        }
+
+        return redirect()->route('index');
     }
 
     /**
@@ -75,22 +82,72 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, $id)
     {
+        // dd("test");
+        $user = User::find($id);
+
         $params = $request->validated();
         
-        $params['user_image'] = "";
+        // dd($params);
         
-        dd($params);
-        
-        $user = User::find($id);
-        $user->update([
-            "firstname" => $params['modifFirstName'],
-            "lastname" => $params['modifLastName'],
-            "email" => $params['modifEmail'],
-            "password" => bcrypt($params['modifPassword']),
-            "image" => $params['user_image'],
-        ]);
+        // L'utilisateur n'est pas obligé de changer de mot de passe
+        // On s'assure que son mot mot de passe ne soit pas une chaine vide
+        if ($params['modifPassword'] != "") {   
+            $user->update([
+                "firstname" => $params['modifFirstName'],
+                "lastname" => $params['modifLastName'],
+                "email" => $params['modifEmail'],
+                "password" => bcrypt($params['modifPassword']),
+                // "image" => $params['user_image'],
+            ]);
+        }
+        else{
+            $user->update([
+                "firstname" => $params['modifFirstName'],
+                "lastname" => $params['modifLastName'],
+                "email" => $params['modifEmail'],
+            ]);
+        }
 
         return redirect()->route('index');
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \App\Http\Requests\UserPictureUpdate  $request
+     * @param  \App\Models\User  $user's id
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePictureUser(UserPictureUpdate $request, $id)
+    {
+        $user = User::find($id);
+        $params = $request->validated();
+        
+        // $params['user_image'] = "";
+        
+        // dd($params);
+        // dd($user->image);
+
+        if ($user->image) {
+            if (Storage::exists("public/$user->image")) {
+                Storage::delete("public/$user->image");
+            }
+        }
+
+        if ($params) {
+            $file = Storage::put('public', $params['user_image']);
+            // dd($file);
+            // dd(substr($file, 7));
+            $user->image = substr($file, 7);
+            $user->save();
+        }
+
+        // $user->update([
+        //     "image" => $params['user_image'],
+        // ]);
+
+        return redirect()->back();
 
     }
 

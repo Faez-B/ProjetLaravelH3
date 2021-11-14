@@ -52,6 +52,7 @@ Route::post("contact", [ContactController::class,'send'])->name("sendEmail");
 
 Route::get("/email/{email}/firstname/{firstname}/lastname/{lastname}", [UserController::class,'create'])->name("addUser");
 Route::post("utilisateurs", [UserController::class,'store'])->name("storeUser");
+Route::post("utilisateurs/image/{id}", [UserController::class,'updatePictureUser'])->name("updatePictureUser");
 Route::post("utilisateurs/{id}", [UserController::class,'update'])->name("updateUser");
 Route::get("utilisateurs/{id}", [UserController::class,'details'])->name("detailsUser");
 Route::delete("utilisateurs/{id}", [UserController::class,'delete'])->name("deleteUser");
