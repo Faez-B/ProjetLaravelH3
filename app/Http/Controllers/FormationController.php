@@ -69,7 +69,7 @@ class FormationController extends Controller
             ]));
         }
 
-        return redirect()->route('index'); 
+        return redirect()->route('index');
     }
 
     /**
@@ -121,8 +121,12 @@ class FormationController extends Controller
 
         // dd($chapitres);
 
+        $categories = Category::all();
+        $types = Type::all();
         return view("formations.details", compact([
             "formation",
+            "categories",
+            "types",
             "chapitres",
             "users",
         ]));
@@ -146,7 +150,7 @@ class FormationController extends Controller
      * @param  \App\Models\Formation  $formation's id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FormationStoreRequest $request, $id)
     {
         if (Auth::check()){
             $formation = Formation::find($id);
@@ -161,12 +165,17 @@ class FormationController extends Controller
 
             // dd($post);
 
-            $formation->categories()->detach();
             if (!empty($params['checkboxCategories'])) {
+                $formation->categories()->detach();
                 $formation->categories()->attach($params['checkboxCategories']);
             }
 
-            return redirect()->route("index");
+            if (!empty($params['checkboxTypes'])) {
+                $formation->types()->detach();
+                $formation->types()->attach($params['checkboxTypes']);
+            }
+
+            // return redirect()->route("index");
         }
 
         return redirect()->route('index'); 

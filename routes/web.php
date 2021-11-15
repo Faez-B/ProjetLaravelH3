@@ -5,6 +5,7 @@ use App\Http\Controllers\TypeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ChapterController;
 use App\Http\Controllers\FormationController;
 
 /*
@@ -37,12 +38,13 @@ Route::get("formations/formateur/{nom}", [FormationController::class,'searchForm
 Route::post("formations/{id}", [FormationController::class,'update'])->name("updateFormation");
 Route::get("formations/{id}", [FormationController::class,'details'])->name("detailsFormation");
 Route::delete("formations/{id}", [FormationController::class,'delete'])->name("deleteFormation");
+Route::post("formations/image/{id}", [UserController::class,'updatePictureFormation'])->name("updatePictureFormation");
 
-Route::get("chapters", [UserController::class,'create'])->name("addChapter");
-Route::post("chapters", [UserController::class,'store'])->name("storeChapter");
-Route::post("chapters/{id}", [UserController::class,'update'])->name("updateChapter");
-Route::get("chapters/{id}", [UserController::class,'details'])->name("detailsChapter");
-Route::delete("chapters/{id}", [UserController::class,'delete'])->name("deleteChapter");
+Route::get("chapters", [ChapterController::class,'create'])->name("addChapter");
+Route::post("chapters/{formation_id}", [ChapterController::class,'store'])->name("storeChapter");
+Route::post("chapters/maj/{id}", [ChapterController::class,'update'])->name("updateChapter");
+Route::get("chapters/{id}", [ChapterController::class,'details'])->name("detailsChapter");
+Route::delete("chapters/{id}", [ChapterController::class,'delete'])->name("deleteChapter");
 
 Route::get("contact", [ContactController::class,'contact'])->name("contact");
 Route::post("contact", [ContactController::class,'send'])->name("sendEmail");
