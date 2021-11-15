@@ -22,3 +22,7 @@
     php artisan migrate:fresh
     php artisan db:seed
 </p>
+
+<p>
+    Vous avez des images fournies pour les formations et utilisateurs, ainsi qu'un diagramme du projet
+</p>
