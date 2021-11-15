@@ -120,7 +120,7 @@
                         @endif
                     </div>
     
-                    <input type="file" class="form-control" name="user_image" id="user_image"> 
+                    <input type="file" class="form-control" name="formation_image" id="formation_image"> 
     
                     <button type="submit" class="btn btn-primary">
                         Changer la photo
@@ -137,7 +137,7 @@
                     </div>
                 @endif --}}
 
-                <input type="text" name="formation_name" class="form_input_name mb-3" value="{{ $formation->name }}" id="formation_name">
+                <input required type="text" name="formation_name" class="form_input_name mb-3" value="{{ $formation->name }}" id="formation_name">
 
                 {{-- @if (!empty($formation->categories))
                     <div>
@@ -163,7 +163,7 @@
                     <label class="fw-bold">
                         Description
                     </label>
-                    <textarea class="form-control" type="text" name="formation_description" id="formation_description">{{ $formation->description }}</textarea>
+                    <textarea required class="form-control" type="text" name="formation_description" id="formation_description">{{ $formation->description }}</textarea>
                 </div>
 
                 <div class="mb-3 form-group">
@@ -171,7 +171,7 @@
                         Prix : 
                     </label>
 
-                    <input class="form-control" type="text" name="formation_prix" id="formation_prix" value="{{ $formation->prix }}"> 
+                    <input required class="form-control" type="text" name="formation_prix" id="formation_prix" value="{{ $formation->prix }}"> 
                 </div>
 
                 <div class="mt-4">

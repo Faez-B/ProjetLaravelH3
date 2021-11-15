@@ -38,7 +38,7 @@ Route::get("formations/formateur/{nom}", [FormationController::class,'searchForm
 Route::post("formations/{id}", [FormationController::class,'update'])->name("updateFormation");
 Route::get("formations/{id}", [FormationController::class,'details'])->name("detailsFormation");
 Route::delete("formations/{id}", [FormationController::class,'delete'])->name("deleteFormation");
-Route::post("formations/image/{id}", [UserController::class,'updatePictureFormation'])->name("updatePictureFormation");
+Route::post("formations/image/{id}", [FormationController::class,'updatePictureFormation'])->name("updatePictureFormation");
 
 Route::get("chapters", [ChapterController::class,'create'])->name("addChapter");
 Route::post("chapters/{formation_id}", [ChapterController::class,'store'])->name("storeChapter");

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FormationPictureUpdate;
 use App\Http\Requests\FormationStoreRequest;
+use App\Http\Requests\FormationUpdateRequest;
 use App\Models\Type;
 use App\Models\User;
 use App\Models\Category;
@@ -146,11 +148,11 @@ class FormationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Http\Requests\FormationStoreRequest  $request
+     * @param  App\Http\Requests\FormationUpdateRequest  $request
      * @param  \App\Models\Formation  $formation's id
      * @return \Illuminate\Http\Response
      */
-    public function update(FormationStoreRequest $request, $id)
+    public function update(FormationUpdateRequest $request, $id)
     {
         if (Auth::check()){
             $formation = Formation::find($id);
@@ -158,9 +160,10 @@ class FormationController extends Controller
 
             // dd($params);
             $formation->update([
-                "name" => $params['name'],
-                "description" => $params['description'],
-                "image" => $params['image'],
+                "name" => $params['formation_name'],
+                "description" => $params['formation_description'],
+                "prix" => $params['formation_prix'],
+                // "image" => $params['image'],
             ]);
 
             // dd($post);
@@ -175,7 +178,39 @@ class FormationController extends Controller
                 $formation->types()->attach($params['checkboxTypes']);
             }
 
-            // return redirect()->route("index");
+            return redirect()->back();
+        }
+
+        return redirect()->route('index'); 
+    }
+
+    public function updatePictureFormation(FormationPictureUpdate $request, $id)
+    {
+        if (Auth::check()){
+            $formation = Formation::find($id);
+            $params = $request->validated();
+
+            // dd($params);
+
+            if ($formation->image) {
+                if (Storage::exists("public/$formation->image")) {
+                    Storage::delete("public/$formation->image");
+                }
+            }
+    
+            if ($params) {
+                $file = Storage::put('public', $params['formation_image']);
+                // dd($file);
+                // dd(substr($file, 7));
+                $formation->image = substr($file, 7);
+                $formation->save();
+            }
+
+            // $formation->update([
+            //     "formation_image" => $params['user_image'],
+            // ]);
+
+            return redirect()->back();
         }
 
         return redirect()->route('index'); 
