@@ -13,23 +13,12 @@
 
     Veuillez tout d'abord connecter votre base de données à ce projet.
     Vous pouvez remplir la base de données avec la seule commande suivante :
-    <code>
-        """
-            php artisan migrate:fresh --seed
-        """
-    </code>
+    
+    php artisan migrate:fresh --seed
 
     Ou alors
 
     avec les deux commandes suivantes :
-    <code>
-        """
-            php artisan migrate:fresh
-        """
-    </code>
-    <code>
-        """
-            php artisan db:seed
-        """
-    </code>
+    php artisan migrate:fresh
+    php artisan db:seed
 </p>
