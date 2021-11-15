@@ -34,6 +34,27 @@
                             </a>
                         </li>
 
+                        <li class="nav-item">
+                            {{-- Un admin peut aussi créer des formations (dans le cas où le formateur ne pourrait le faire, ceci est utile) --}}
+                            <a class="nav-link active" aria-current="page" href="{{ route('addFormation') }}">
+                                Formations
+                            </a>
+                        </li>
+
+                        @if (Auth::user()->role == "admin")
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{ route('addCategory') }}">
+                                    Catégories
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="{{ route('addType') }}">
+                                    Types
+                                </a>
+                            </li>  
+                        @endif
+
                     @else
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="{{ route('contact') }}">

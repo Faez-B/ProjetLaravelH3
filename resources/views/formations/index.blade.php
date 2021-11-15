@@ -10,8 +10,8 @@
     </h1>
 
     @if (Auth::check())
-        <div class="mb-4">
-            {{-- Un admin peut aussi créer des formations (dans le cas où le formateur ne pourrait le faire, ceci est utile) --}}
+        {{-- <div class="mb-4">
+            {{-- Un admin peut aussi créer des formations (dans le cas où le formateur ne pourrait le faire, ceci est utile) --}
             <a href="{{ route('addFormation') }}">
                 <button class="btn btn-primary">
                     Formations
@@ -31,7 +31,7 @@
                     </button>
                 </a>
             @endif
-        </div>
+        </div> --}}
         <p class="fw-bold mt-4 mb-4">
             Vos formations s'affichent en vert
         </p>
@@ -85,7 +85,9 @@
                                 <div>
                                     @foreach ($formation->categories as $category)
                                         <div class="btn btn-warning mt-1">
-                                            {{ $category->name }}        
+                                            <a href="{{ route('searchCat', $category->name) }}">
+                                                {{ $category->name }}   
+                                            </a>     
                                         </div>
                                     @endforeach
                                 </div>
@@ -95,7 +97,9 @@
                                 <div>
                                     @foreach ($formation->types as $type)
                                         <div class="btn btn-info mt-1">
-                                            {{ $type->name }}        
+                                            <a href="{{ route('searchType', $type->name) }}">
+                                                {{ $type->name }}      
+                                            </a>  
                                         </div>
                                     @endforeach
                                 </div>

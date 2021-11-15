@@ -19,6 +19,10 @@
         </ul>
     @endif
 
+    <p class="text-secondary">
+        Vous pourrez créer les chapitres de cette formation dans le détail de celle-ci
+    </p>
+
     <form action="{{ route('storeFormation') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form-group mt-3 mb-3">
